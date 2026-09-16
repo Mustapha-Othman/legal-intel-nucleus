@@ -20,6 +20,7 @@ import { Route as ReplayRouteImport } from './routes/replay'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as SandboxRouteImport } from './routes/sandbox'
 import { Route as SourcesRouteImport } from './routes/sources'
+import { Route as SystemRouteImport } from './routes/system'
 import { Route as WorkspacesRouteImport } from './routes/workspaces'
 import { Route as CasesIndexRouteImport } from './routes/cases.index'
 import { Route as CasesCaseIdRouteImport } from './routes/cases.$caseId'
@@ -81,6 +82,11 @@ const SourcesRoute = SourcesRouteImport.update({
   path: '/sources',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SystemRoute = SystemRouteImport.update({
+  id: '/system',
+  path: '/system',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WorkspacesRoute = WorkspacesRouteImport.update({
   id: '/workspaces',
   path: '/workspaces',
@@ -119,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
   '/sources': typeof SourcesRoute
+  '/system': typeof SystemRoute
   '/workspaces': typeof WorkspacesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
   '/sources': typeof SourcesRoute
+  '/system': typeof SystemRoute
   '/workspaces': typeof WorkspacesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
@@ -156,6 +164,7 @@ export interface FileRoutesById {
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
   '/sources': typeof SourcesRoute
+  '/system': typeof SystemRoute
   '/workspaces': typeof WorkspacesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
@@ -176,6 +185,7 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/sandbox'
     | '/sources'
+    | '/system'
     | '/workspaces'
     | '/cases/$caseId'
     | '/documents/$documentId'
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/sandbox'
     | '/sources'
+    | '/system'
     | '/workspaces'
     | '/cases/$caseId'
     | '/documents/$documentId'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/sandbox'
     | '/sources'
+    | '/system'
     | '/workspaces'
     | '/cases/$caseId'
     | '/documents/$documentId'
@@ -231,6 +243,7 @@ export interface RootRouteChildren {
   ReviewsRoute: typeof ReviewsRoute
   SandboxRoute: typeof SandboxRoute
   SourcesRoute: typeof SourcesRoute
+  SystemRoute: typeof SystemRoute
   WorkspacesRoute: typeof WorkspacesRoute
   CasesCaseIdRoute: typeof CasesCaseIdRoute
   DocumentsDocumentIdRoute: typeof DocumentsDocumentIdRoute
@@ -317,6 +330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/system': {
+      id: '/system'
+      path: '/system'
+      fullPath: '/system'
+      preLoaderRoute: typeof SystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/workspaces': {
       id: '/workspaces'
       path: '/workspaces'
@@ -367,6 +387,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReviewsRoute: ReviewsRoute,
   SandboxRoute: SandboxRoute,
   SourcesRoute: SourcesRoute,
+  SystemRoute: SystemRoute,
   WorkspacesRoute: WorkspacesRoute,
   CasesCaseIdRoute: CasesCaseIdRoute,
   DocumentsDocumentIdRoute: DocumentsDocumentIdRoute,
