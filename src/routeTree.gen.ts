@@ -14,6 +14,7 @@ import { Route as AccessRouteImport } from './routes/access'
 import { Route as AnalysisRouteImport } from './routes/analysis'
 import { Route as FactsRouteImport } from './routes/facts'
 import { Route as KnowledgeRouteImport } from './routes/knowledge'
+import { Route as OperationsRouteImport } from './routes/operations'
 import { Route as ReplayRouteImport } from './routes/replay'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as SandboxRouteImport } from './routes/sandbox'
@@ -47,6 +48,11 @@ const FactsRoute = FactsRouteImport.update({
 const KnowledgeRoute = KnowledgeRouteImport.update({
   id: '/knowledge',
   path: '/knowledge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OperationsRoute = OperationsRouteImport.update({
+  id: '/operations',
+  path: '/operations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReplayRoute = ReplayRouteImport.update({
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/analysis': typeof AnalysisRoute
   '/facts': typeof FactsRoute
   '/knowledge': typeof KnowledgeRoute
+  '/operations': typeof OperationsRoute
   '/replay': typeof ReplayRoute
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
@@ -117,6 +124,7 @@ export interface FileRoutesByTo {
   '/analysis': typeof AnalysisRoute
   '/facts': typeof FactsRoute
   '/knowledge': typeof KnowledgeRoute
+  '/operations': typeof OperationsRoute
   '/replay': typeof ReplayRoute
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/analysis': typeof AnalysisRoute
   '/facts': typeof FactsRoute
   '/knowledge': typeof KnowledgeRoute
+  '/operations': typeof OperationsRoute
   '/replay': typeof ReplayRoute
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
@@ -152,6 +161,7 @@ export interface FileRouteTypes {
     | '/analysis'
     | '/facts'
     | '/knowledge'
+    | '/operations'
     | '/replay'
     | '/reviews'
     | '/sandbox'
@@ -168,6 +178,7 @@ export interface FileRouteTypes {
     | '/analysis'
     | '/facts'
     | '/knowledge'
+    | '/operations'
     | '/replay'
     | '/reviews'
     | '/sandbox'
@@ -184,6 +195,7 @@ export interface FileRouteTypes {
     | '/analysis'
     | '/facts'
     | '/knowledge'
+    | '/operations'
     | '/replay'
     | '/reviews'
     | '/sandbox'
@@ -201,6 +213,7 @@ export interface RootRouteChildren {
   AnalysisRoute: typeof AnalysisRoute
   FactsRoute: typeof FactsRoute
   KnowledgeRoute: typeof KnowledgeRoute
+  OperationsRoute: typeof OperationsRoute
   ReplayRoute: typeof ReplayRoute
   ReviewsRoute: typeof ReviewsRoute
   SandboxRoute: typeof SandboxRoute
@@ -247,6 +260,13 @@ declare module '@tanstack/react-router' {
       path: '/knowledge'
       fullPath: '/knowledge'
       preLoaderRoute: typeof KnowledgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/operations': {
+      id: '/operations'
+      path: '/operations'
+      fullPath: '/operations'
+      preLoaderRoute: typeof OperationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/replay': {
@@ -321,6 +341,7 @@ const rootRouteChildren: RootRouteChildren = {
   AnalysisRoute: AnalysisRoute,
   FactsRoute: FactsRoute,
   KnowledgeRoute: KnowledgeRoute,
+  OperationsRoute: OperationsRoute,
   ReplayRoute: ReplayRoute,
   ReviewsRoute: ReviewsRoute,
   SandboxRoute: SandboxRoute,
