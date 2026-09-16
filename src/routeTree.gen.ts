@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccessRouteImport } from './routes/access'
 import { Route as AnalysisRouteImport } from './routes/analysis'
+import { Route as AuditRouteImport } from './routes/audit'
 import { Route as FactsRouteImport } from './routes/facts'
 import { Route as KnowledgeRouteImport } from './routes/knowledge'
 import { Route as OperationsRouteImport } from './routes/operations'
@@ -38,6 +39,11 @@ const AccessRoute = AccessRouteImport.update({
 const AnalysisRoute = AnalysisRouteImport.update({
   id: '/analysis',
   path: '/analysis',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditRoute = AuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FactsRoute = FactsRouteImport.update({
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/access': typeof AccessRoute
   '/analysis': typeof AnalysisRoute
+  '/audit': typeof AuditRoute
   '/facts': typeof FactsRoute
   '/knowledge': typeof KnowledgeRoute
   '/operations': typeof OperationsRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/access': typeof AccessRoute
   '/analysis': typeof AnalysisRoute
+  '/audit': typeof AuditRoute
   '/facts': typeof FactsRoute
   '/knowledge': typeof KnowledgeRoute
   '/operations': typeof OperationsRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/access': typeof AccessRoute
   '/analysis': typeof AnalysisRoute
+  '/audit': typeof AuditRoute
   '/facts': typeof FactsRoute
   '/knowledge': typeof KnowledgeRoute
   '/operations': typeof OperationsRoute
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/'
     | '/access'
     | '/analysis'
+    | '/audit'
     | '/facts'
     | '/knowledge'
     | '/operations'
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
     | '/'
     | '/access'
     | '/analysis'
+    | '/audit'
     | '/facts'
     | '/knowledge'
     | '/operations'
@@ -193,6 +204,7 @@ export interface FileRouteTypes {
     | '/'
     | '/access'
     | '/analysis'
+    | '/audit'
     | '/facts'
     | '/knowledge'
     | '/operations'
@@ -211,6 +223,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccessRoute: typeof AccessRoute
   AnalysisRoute: typeof AnalysisRoute
+  AuditRoute: typeof AuditRoute
   FactsRoute: typeof FactsRoute
   KnowledgeRoute: typeof KnowledgeRoute
   OperationsRoute: typeof OperationsRoute
@@ -246,6 +259,13 @@ declare module '@tanstack/react-router' {
       path: '/analysis'
       fullPath: '/analysis'
       preLoaderRoute: typeof AnalysisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audit': {
+      id: '/audit'
+      path: '/audit'
+      fullPath: '/audit'
+      preLoaderRoute: typeof AuditRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/facts': {
@@ -339,6 +359,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccessRoute: AccessRoute,
   AnalysisRoute: AnalysisRoute,
+  AuditRoute: AuditRoute,
   FactsRoute: FactsRoute,
   KnowledgeRoute: KnowledgeRoute,
   OperationsRoute: OperationsRoute,
