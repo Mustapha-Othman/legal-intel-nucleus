@@ -128,7 +128,7 @@ function DocumentViewer() {
   const [zoom, setZoom] = useState(100);
   const [activeSpan, setActiveSpan] = useState<string | null>(null);
   const [view, setView] = useState<"split" | "text">("split");
-  const content = extractedPages[page];
+  const content = extractedPages[page] ?? extractedPages[1]!;
 
   const failed = document.status === "failed";
 
@@ -162,7 +162,7 @@ function DocumentViewer() {
             <Button variant="default" leftSection={<RefreshCw size={15} />}>
               إعادة المعالجة
             </Button>
-            <Button color="navy" component={Link} to="/cases/$caseId" params={{ caseId: document.caseId }}>
+            <Button color="navy" component={Link} to="/cases/$caseId" params={{ caseId: document.caseId } as never}>
               فتح القضية
             </Button>
           </>
@@ -197,7 +197,7 @@ function DocumentViewer() {
                 <Tooltip label="الصفحة السابقة" withArrow>
                   <ActionIcon
                     variant="default"
-                    onClick={() => setPage(pageKeys[Math.max(0, pageKeys.indexOf(page) - 1)])}
+                    onClick={() => setPage(pageKeys[Math.max(0, pageKeys.indexOf(page) - 1)]!)}
                     aria-label="الصفحة السابقة"
                   >
                     <ChevronRight size={16} />
@@ -210,7 +210,7 @@ function DocumentViewer() {
                   <ActionIcon
                     variant="default"
                     onClick={() =>
-                      setPage(pageKeys[Math.min(pageKeys.length - 1, pageKeys.indexOf(page) + 1)])
+                      setPage(pageKeys[Math.min(pageKeys.length - 1, pageKeys.indexOf(page) + 1)]!)
                     }
                     aria-label="الصفحة التالية"
                   >
@@ -275,7 +275,7 @@ function DocumentViewer() {
                             {content.heading}
                           </Text>
                           <Divider color="#E3E8EF" />
-                          {content.paragraphs.map((p) => (
+                          {content.paragraphs.map((p: { id: string; text: string }) => (
                             <Box
                               key={p.id}
                               onClick={() => setActiveSpan(p.id)}
@@ -326,7 +326,7 @@ function DocumentViewer() {
                         </Badge>
                       </Group>
                       <Stack gap="sm">
-                        {content.paragraphs.map((p) => (
+                        {content.paragraphs.map((p: { id: string; text: string }) => (
                           <Paper
                             key={p.id}
                             p="sm"

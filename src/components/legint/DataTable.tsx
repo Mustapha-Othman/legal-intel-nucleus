@@ -265,7 +265,7 @@ export function DataTable<T extends { id: string }>({
                             <Menu.Item
                               key={action.label}
                               leftSection={action.icon}
-                              color={action.danger ? "red" : undefined}
+                              {...(action.danger ? { color: "red" as const } : {})}
                               onClick={() => action.onClick?.(row)}
                             >
                               {action.label}

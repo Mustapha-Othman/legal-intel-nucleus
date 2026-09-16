@@ -330,7 +330,7 @@ function Overview() {
               {recentActivity.slice(0, 5).map((event) => (
                 <Timeline.Item
                   key={event.id}
-                  color={timelineTone[event.status]}
+                  color={timelineTone[event.status] ?? "navy"}
                   title={
                     <Text size="sm" fw={600} c="#16202A">
                       {event.resource}

@@ -448,7 +448,7 @@ function CaseWorkbench() {
                         <Anchor
                           component={Link}
                           to="/documents/$documentId"
-                          params={{ documentId: doc.id }}
+                          params={{ documentId: doc.id } as never}
                           underline="never"
                         >
                           <Text size="sm" fw={600} c="#102A43">

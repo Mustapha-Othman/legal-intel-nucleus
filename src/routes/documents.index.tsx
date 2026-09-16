@@ -43,7 +43,7 @@ function DocumentsPage() {
           <Anchor
             component={Link}
             to="/documents/$documentId"
-            params={{ documentId: row.id }}
+            params={{ documentId: row.id } as never}
             underline="never"
           >
             <Text size="sm" fw={600} c="#102A43">
@@ -61,7 +61,7 @@ function DocumentsPage() {
       key: "caseId",
       header: "القضية",
       render: (row) => (
-        <Anchor component={Link} to="/cases/$caseId" params={{ caseId: row.caseId }} underline="never">
+        <Anchor component={Link} to="/cases/$caseId" params={{ caseId: row.caseId } as never} underline="never">
           <Mono size={12} c="#3F5B7E">
             {row.caseId}
           </Mono>

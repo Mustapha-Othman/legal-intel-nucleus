@@ -184,7 +184,7 @@ export function AppShellLayout({ children }: { children: ReactNode }) {
           <Group gap="xs" wrap="nowrap">
             <Select
               data={workspaces}
-              defaultValue={workspaces[0].value}
+              defaultValue={workspaces[0]?.value}
               size="sm"
               w={230}
               visibleFrom="lg"

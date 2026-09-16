@@ -47,7 +47,7 @@ function CasesPage() {
       header: "رقم القضية",
       width: 150,
       render: (row) => (
-        <Anchor component={Link} to="/cases/$caseId" params={{ caseId: row.id }} underline="never">
+        <Anchor component={Link} to="/cases/$caseId" params={{ caseId: row.id } as never} underline="never">
           <Mono size={12.5} c="#102A43" weight={600}>
             {row.id}
           </Mono>
