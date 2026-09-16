@@ -19,6 +19,7 @@ import { Route as OperationsRouteImport } from './routes/operations'
 import { Route as ReplayRouteImport } from './routes/replay'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as SandboxRouteImport } from './routes/sandbox'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SourcesRouteImport } from './routes/sources'
 import { Route as SystemRouteImport } from './routes/system'
 import { Route as WorkspacesRouteImport } from './routes/workspaces'
@@ -77,6 +78,11 @@ const SandboxRoute = SandboxRouteImport.update({
   path: '/sandbox',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SourcesRoute = SourcesRouteImport.update({
   id: '/sources',
   path: '/sources',
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/replay': typeof ReplayRoute
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
+  '/settings': typeof SettingsRoute
   '/sources': typeof SourcesRoute
   '/system': typeof SystemRoute
   '/workspaces': typeof WorkspacesRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/replay': typeof ReplayRoute
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
+  '/settings': typeof SettingsRoute
   '/sources': typeof SourcesRoute
   '/system': typeof SystemRoute
   '/workspaces': typeof WorkspacesRoute
@@ -163,6 +171,7 @@ export interface FileRoutesById {
   '/replay': typeof ReplayRoute
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
+  '/settings': typeof SettingsRoute
   '/sources': typeof SourcesRoute
   '/system': typeof SystemRoute
   '/workspaces': typeof WorkspacesRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
     | '/replay'
     | '/reviews'
     | '/sandbox'
+    | '/settings'
     | '/sources'
     | '/system'
     | '/workspaces'
@@ -203,6 +213,7 @@ export interface FileRouteTypes {
     | '/replay'
     | '/reviews'
     | '/sandbox'
+    | '/settings'
     | '/sources'
     | '/system'
     | '/workspaces'
@@ -222,6 +233,7 @@ export interface FileRouteTypes {
     | '/replay'
     | '/reviews'
     | '/sandbox'
+    | '/settings'
     | '/sources'
     | '/system'
     | '/workspaces'
@@ -242,6 +254,7 @@ export interface RootRouteChildren {
   ReplayRoute: typeof ReplayRoute
   ReviewsRoute: typeof ReviewsRoute
   SandboxRoute: typeof SandboxRoute
+  SettingsRoute: typeof SettingsRoute
   SourcesRoute: typeof SourcesRoute
   SystemRoute: typeof SystemRoute
   WorkspacesRoute: typeof WorkspacesRoute
@@ -323,6 +336,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SandboxRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sources': {
       id: '/sources'
       path: '/sources'
@@ -386,6 +406,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReplayRoute: ReplayRoute,
   ReviewsRoute: ReviewsRoute,
   SandboxRoute: SandboxRoute,
+  SettingsRoute: SettingsRoute,
   SourcesRoute: SourcesRoute,
   SystemRoute: SystemRoute,
   WorkspacesRoute: WorkspacesRoute,
