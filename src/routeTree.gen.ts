@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AnalysisRouteImport } from './routes/analysis'
 import { Route as FactsRouteImport } from './routes/facts'
 import { Route as KnowledgeRouteImport } from './routes/knowledge'
+import { Route as ReplayRouteImport } from './routes/replay'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as SourcesRouteImport } from './routes/sources'
 import { Route as CasesIndexRouteImport } from './routes/cases.index'
@@ -38,6 +39,11 @@ const FactsRoute = FactsRouteImport.update({
 const KnowledgeRoute = KnowledgeRouteImport.update({
   id: '/knowledge',
   path: '/knowledge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReplayRoute = ReplayRouteImport.update({
+  id: '/replay',
+  path: '/replay',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewsRoute = ReviewsRouteImport.update({
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/analysis': typeof AnalysisRoute
   '/facts': typeof FactsRoute
   '/knowledge': typeof KnowledgeRoute
+  '/replay': typeof ReplayRoute
   '/reviews': typeof ReviewsRoute
   '/sources': typeof SourcesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
@@ -88,6 +95,7 @@ export interface FileRoutesByTo {
   '/analysis': typeof AnalysisRoute
   '/facts': typeof FactsRoute
   '/knowledge': typeof KnowledgeRoute
+  '/replay': typeof ReplayRoute
   '/reviews': typeof ReviewsRoute
   '/sources': typeof SourcesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
@@ -101,6 +109,7 @@ export interface FileRoutesById {
   '/analysis': typeof AnalysisRoute
   '/facts': typeof FactsRoute
   '/knowledge': typeof KnowledgeRoute
+  '/replay': typeof ReplayRoute
   '/reviews': typeof ReviewsRoute
   '/sources': typeof SourcesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | '/analysis'
     | '/facts'
     | '/knowledge'
+    | '/replay'
     | '/reviews'
     | '/sources'
     | '/cases/$caseId'
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
     | '/analysis'
     | '/facts'
     | '/knowledge'
+    | '/replay'
     | '/reviews'
     | '/sources'
     | '/cases/$caseId'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/analysis'
     | '/facts'
     | '/knowledge'
+    | '/replay'
     | '/reviews'
     | '/sources'
     | '/cases/$caseId'
@@ -152,6 +164,7 @@ export interface RootRouteChildren {
   AnalysisRoute: typeof AnalysisRoute
   FactsRoute: typeof FactsRoute
   KnowledgeRoute: typeof KnowledgeRoute
+  ReplayRoute: typeof ReplayRoute
   ReviewsRoute: typeof ReviewsRoute
   SourcesRoute: typeof SourcesRoute
   CasesCaseIdRoute: typeof CasesCaseIdRoute
@@ -188,6 +201,13 @@ declare module '@tanstack/react-router' {
       path: '/knowledge'
       fullPath: '/knowledge'
       preLoaderRoute: typeof KnowledgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/replay': {
+      id: '/replay'
+      path: '/replay'
+      fullPath: '/replay'
+      preLoaderRoute: typeof ReplayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reviews': {
@@ -240,6 +260,7 @@ const rootRouteChildren: RootRouteChildren = {
   AnalysisRoute: AnalysisRoute,
   FactsRoute: FactsRoute,
   KnowledgeRoute: KnowledgeRoute,
+  ReplayRoute: ReplayRoute,
   ReviewsRoute: ReviewsRoute,
   SourcesRoute: SourcesRoute,
   CasesCaseIdRoute: CasesCaseIdRoute,
