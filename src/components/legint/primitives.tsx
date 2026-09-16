@@ -110,9 +110,9 @@ export function StatCard({
 }: {
   label: string;
   value: string;
-  delta?: string;
-  deltaTone?: StatusTone;
-  icon?: LucideIcon;
+  delta?: string | undefined;
+  deltaTone?: StatusTone | undefined;
+  icon?: LucideIcon | undefined;
 }) {
   return (
     <Paper p="md" h="100%">
