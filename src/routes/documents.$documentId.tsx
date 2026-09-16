@@ -275,7 +275,7 @@ function DocumentViewer() {
                             {content.heading}
                           </Text>
                           <Divider color="#E3E8EF" />
-                          {content.paragraphs.map((p: { id: string; text: string; linked?: string[] }) => (
+                          {content.paragraphs.map((p: { id: string; text: string; linked?: string }) => (
                             <Box
                               key={p.id}
                               onClick={() => setActiveSpan(p.id)}
@@ -326,7 +326,7 @@ function DocumentViewer() {
                         </Badge>
                       </Group>
                       <Stack gap="sm">
-                        {content.paragraphs.map((p: { id: string; text: string; linked?: string[] }) => (
+                        {content.paragraphs.map((p: { id: string; text: string; linked?: string }) => (
                           <Paper
                             key={p.id}
                             p="sm"
