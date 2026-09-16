@@ -18,6 +18,7 @@ import { Route as ReplayRouteImport } from './routes/replay'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as SandboxRouteImport } from './routes/sandbox'
 import { Route as SourcesRouteImport } from './routes/sources'
+import { Route as WorkspacesRouteImport } from './routes/workspaces'
 import { Route as CasesIndexRouteImport } from './routes/cases.index'
 import { Route as CasesCaseIdRouteImport } from './routes/cases.$caseId'
 import { Route as DocumentsIndexRouteImport } from './routes/documents.index'
@@ -68,6 +69,11 @@ const SourcesRoute = SourcesRouteImport.update({
   path: '/sources',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkspacesRoute = WorkspacesRouteImport.update({
+  id: '/workspaces',
+  path: '/workspaces',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CasesIndexRoute = CasesIndexRouteImport.update({
   id: '/cases/',
   path: '/cases/',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
   '/sources': typeof SourcesRoute
+  '/workspaces': typeof WorkspacesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
   '/cases/': typeof CasesIndexRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByTo {
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
   '/sources': typeof SourcesRoute
+  '/workspaces': typeof WorkspacesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
   '/cases': typeof CasesIndexRoute
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
   '/sources': typeof SourcesRoute
+  '/workspaces': typeof WorkspacesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
   '/cases/': typeof CasesIndexRoute
@@ -147,6 +156,7 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/sandbox'
     | '/sources'
+    | '/workspaces'
     | '/cases/$caseId'
     | '/documents/$documentId'
     | '/cases/'
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/sandbox'
     | '/sources'
+    | '/workspaces'
     | '/cases/$caseId'
     | '/documents/$documentId'
     | '/cases'
@@ -177,6 +188,7 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/sandbox'
     | '/sources'
+    | '/workspaces'
     | '/cases/$caseId'
     | '/documents/$documentId'
     | '/cases/'
@@ -193,6 +205,7 @@ export interface RootRouteChildren {
   ReviewsRoute: typeof ReviewsRoute
   SandboxRoute: typeof SandboxRoute
   SourcesRoute: typeof SourcesRoute
+  WorkspacesRoute: typeof WorkspacesRoute
   CasesCaseIdRoute: typeof CasesCaseIdRoute
   DocumentsDocumentIdRoute: typeof DocumentsDocumentIdRoute
   CasesIndexRoute: typeof CasesIndexRoute
@@ -264,6 +277,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/workspaces': {
+      id: '/workspaces'
+      path: '/workspaces'
+      fullPath: '/workspaces'
+      preLoaderRoute: typeof WorkspacesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cases/': {
       id: '/cases/'
       path: '/cases'
@@ -305,6 +325,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReviewsRoute: ReviewsRoute,
   SandboxRoute: SandboxRoute,
   SourcesRoute: SourcesRoute,
+  WorkspacesRoute: WorkspacesRoute,
   CasesCaseIdRoute: CasesCaseIdRoute,
   DocumentsDocumentIdRoute: DocumentsDocumentIdRoute,
   CasesIndexRoute: CasesIndexRoute,
