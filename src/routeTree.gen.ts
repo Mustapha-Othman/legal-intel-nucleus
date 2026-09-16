@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AnalysisRouteImport } from './routes/analysis'
 import { Route as FactsRouteImport } from './routes/facts'
 import { Route as KnowledgeRouteImport } from './routes/knowledge'
+import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as SourcesRouteImport } from './routes/sources'
 import { Route as CasesIndexRouteImport } from './routes/cases.index'
 import { Route as CasesCaseIdRouteImport } from './routes/cases.$caseId'
@@ -37,6 +38,11 @@ const FactsRoute = FactsRouteImport.update({
 const KnowledgeRoute = KnowledgeRouteImport.update({
   id: '/knowledge',
   path: '/knowledge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SourcesRoute = SourcesRouteImport.update({
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/analysis': typeof AnalysisRoute
   '/facts': typeof FactsRoute
   '/knowledge': typeof KnowledgeRoute
+  '/reviews': typeof ReviewsRoute
   '/sources': typeof SourcesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/analysis': typeof AnalysisRoute
   '/facts': typeof FactsRoute
   '/knowledge': typeof KnowledgeRoute
+  '/reviews': typeof ReviewsRoute
   '/sources': typeof SourcesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/analysis': typeof AnalysisRoute
   '/facts': typeof FactsRoute
   '/knowledge': typeof KnowledgeRoute
+  '/reviews': typeof ReviewsRoute
   '/sources': typeof SourcesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/analysis'
     | '/facts'
     | '/knowledge'
+    | '/reviews'
     | '/sources'
     | '/cases/$caseId'
     | '/documents/$documentId'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/analysis'
     | '/facts'
     | '/knowledge'
+    | '/reviews'
     | '/sources'
     | '/cases/$caseId'
     | '/documents/$documentId'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/analysis'
     | '/facts'
     | '/knowledge'
+    | '/reviews'
     | '/sources'
     | '/cases/$caseId'
     | '/documents/$documentId'
@@ -140,6 +152,7 @@ export interface RootRouteChildren {
   AnalysisRoute: typeof AnalysisRoute
   FactsRoute: typeof FactsRoute
   KnowledgeRoute: typeof KnowledgeRoute
+  ReviewsRoute: typeof ReviewsRoute
   SourcesRoute: typeof SourcesRoute
   CasesCaseIdRoute: typeof CasesCaseIdRoute
   DocumentsDocumentIdRoute: typeof DocumentsDocumentIdRoute
@@ -175,6 +188,13 @@ declare module '@tanstack/react-router' {
       path: '/knowledge'
       fullPath: '/knowledge'
       preLoaderRoute: typeof KnowledgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sources': {
@@ -220,6 +240,7 @@ const rootRouteChildren: RootRouteChildren = {
   AnalysisRoute: AnalysisRoute,
   FactsRoute: FactsRoute,
   KnowledgeRoute: KnowledgeRoute,
+  ReviewsRoute: ReviewsRoute,
   SourcesRoute: SourcesRoute,
   CasesCaseIdRoute: CasesCaseIdRoute,
   DocumentsDocumentIdRoute: DocumentsDocumentIdRoute,
