@@ -124,7 +124,7 @@ function DocumentViewer() {
   const { document } = Route.useLoaderData();
   const status = docStatusLabels[document.status];
   const pageKeys = Object.keys(extractedPages).map(Number);
-  const [page, setPage] = useState(pageKeys[0]);
+  const [page, setPage] = useState<number>(pageKeys[0] ?? 1);
   const [zoom, setZoom] = useState(100);
   const [activeSpan, setActiveSpan] = useState<string | null>(null);
   const [view, setView] = useState<"split" | "text">("split");
@@ -275,7 +275,7 @@ function DocumentViewer() {
                             {content.heading}
                           </Text>
                           <Divider color="#E3E8EF" />
-                          {content.paragraphs.map((p: { id: string; text: string }) => (
+                          {content.paragraphs.map((p: { id: string; text: string; linked?: string[] }) => (
                             <Box
                               key={p.id}
                               onClick={() => setActiveSpan(p.id)}
@@ -326,7 +326,7 @@ function DocumentViewer() {
                         </Badge>
                       </Group>
                       <Stack gap="sm">
-                        {content.paragraphs.map((p: { id: string; text: string }) => (
+                        {content.paragraphs.map((p: { id: string; text: string; linked?: string[] }) => (
                           <Paper
                             key={p.id}
                             p="sm"
