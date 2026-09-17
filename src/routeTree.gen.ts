@@ -29,6 +29,7 @@ import { Route as DocumentsIndexRouteImport } from './routes/documents.index'
 import { Route as DocumentsDocumentIdRouteImport } from './routes/documents.$documentId'
 import { Route as SourcesIndexRouteImport } from './routes/sources.index'
 import { Route as SourcesSourceIdRouteImport } from './routes/sources.$sourceId'
+import { Route as SourcesSourceIdIndexRouteImport } from './routes/sources.$sourceId.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -130,6 +131,11 @@ const SourcesSourceIdRoute = SourcesSourceIdRouteImport.update({
   path: '/$sourceId',
   getParentRoute: () => SourcesRoute,
 } as any)
+const SourcesSourceIdIndexRoute = SourcesSourceIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SourcesSourceIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -148,10 +154,11 @@ export interface FileRoutesByFullPath {
   '/workspaces': typeof WorkspacesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
-  '/sources/$sourceId': typeof SourcesSourceIdRoute
+  '/sources/$sourceId': typeof SourcesSourceIdRouteWithChildren
   '/cases/': typeof CasesIndexRoute
   '/documents/': typeof DocumentsIndexRoute
   '/sources/': typeof SourcesIndexRoute
+  '/sources/$sourceId/': typeof SourcesSourceIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -169,10 +176,10 @@ export interface FileRoutesByTo {
   '/workspaces': typeof WorkspacesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
-  '/sources/$sourceId': typeof SourcesSourceIdRoute
   '/cases': typeof CasesIndexRoute
   '/documents': typeof DocumentsIndexRoute
   '/sources': typeof SourcesIndexRoute
+  '/sources/$sourceId': typeof SourcesSourceIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -192,10 +199,11 @@ export interface FileRoutesById {
   '/workspaces': typeof WorkspacesRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
-  '/sources/$sourceId': typeof SourcesSourceIdRoute
+  '/sources/$sourceId': typeof SourcesSourceIdRouteWithChildren
   '/cases/': typeof CasesIndexRoute
   '/documents/': typeof DocumentsIndexRoute
   '/sources/': typeof SourcesIndexRoute
+  '/sources/$sourceId/': typeof SourcesSourceIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -220,6 +228,7 @@ export interface FileRouteTypes {
     | '/cases/'
     | '/documents/'
     | '/sources/'
+    | '/sources/$sourceId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -237,10 +246,10 @@ export interface FileRouteTypes {
     | '/workspaces'
     | '/cases/$caseId'
     | '/documents/$documentId'
-    | '/sources/$sourceId'
     | '/cases'
     | '/documents'
     | '/sources'
+    | '/sources/$sourceId'
   id:
     | '__root__'
     | '/'
@@ -263,6 +272,7 @@ export interface FileRouteTypes {
     | '/cases/'
     | '/documents/'
     | '/sources/'
+    | '/sources/$sourceId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -428,16 +438,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SourcesSourceIdRouteImport
       parentRoute: typeof SourcesRoute
     }
+    '/sources/$sourceId/': {
+      id: '/sources/$sourceId/'
+      path: '/'
+      fullPath: '/sources/$sourceId/'
+      preLoaderRoute: typeof SourcesSourceIdIndexRouteImport
+      parentRoute: typeof SourcesSourceIdRoute
+    }
   }
 }
 
+interface SourcesSourceIdRouteChildren {
+  SourcesSourceIdIndexRoute: typeof SourcesSourceIdIndexRoute
+}
+
+const SourcesSourceIdRouteChildren: SourcesSourceIdRouteChildren = {
+  SourcesSourceIdIndexRoute: SourcesSourceIdIndexRoute,
+}
+
+const SourcesSourceIdRouteWithChildren = SourcesSourceIdRoute._addFileChildren(
+  SourcesSourceIdRouteChildren,
+)
+
 interface SourcesRouteChildren {
-  SourcesSourceIdRoute: typeof SourcesSourceIdRoute
+  SourcesSourceIdRoute: typeof SourcesSourceIdRouteWithChildren
   SourcesIndexRoute: typeof SourcesIndexRoute
 }
 
 const SourcesRouteChildren: SourcesRouteChildren = {
-  SourcesSourceIdRoute: SourcesSourceIdRoute,
+  SourcesSourceIdRoute: SourcesSourceIdRouteWithChildren,
   SourcesIndexRoute: SourcesIndexRoute,
 }
 
