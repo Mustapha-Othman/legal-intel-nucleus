@@ -188,9 +188,7 @@ function AttemptDetail() {
                   </Group>
                 }
               >
-                <Text fz={12} c="#667085" dir="ltr" style={{ textAlign: "start" }}>
-                  {t.labelEn}
-                </Text>
+                <StatusBadge dot={false} tone={t.tone} label={attemptStateLabels[attempt.state].label} />
               </Timeline.Item>
             ))}
           </Timeline>
