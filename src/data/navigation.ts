@@ -4,6 +4,7 @@ import {
   FileText,
   ListChecks,
   Landmark,
+  DownloadCloud,
   BookOpenCheck,
   BrainCircuit,
   ClipboardCheck,
@@ -48,6 +49,11 @@ export const navGroups: NavGroup[] = [
     label: { ar: "المعرفة القانونية", en: "Legal Knowledge" },
     items: [
       { label: { ar: "المصادر القانونية", en: "Legal Sources" }, to: "/sources", icon: Landmark },
+      {
+        label: { ar: "الاستحواذ على المصادر", en: "Source Acquisition" },
+        to: "/acquisition",
+        icon: DownloadCloud,
+      },
       { label: { ar: "غرفة المعرفة", en: "Knowledge Room" }, to: "/knowledge", icon: BookOpenCheck },
     ],
   },
