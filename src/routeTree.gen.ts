@@ -20,9 +20,10 @@ import { Route as ReplayRouteImport } from './routes/replay'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as SandboxRouteImport } from './routes/sandbox'
 import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as SourcesRouteImport } from './routes/sources'
 import { Route as SystemRouteImport } from './routes/system'
 import { Route as WorkspacesRouteImport } from './routes/workspaces'
+import { Route as AcquisitionIndexRouteImport } from './routes/acquisition.index'
+import { Route as AcquisitionAttemptIdRouteImport } from './routes/acquisition.$attemptId'
 import { Route as CasesIndexRouteImport } from './routes/cases.index'
 import { Route as CasesCaseIdRouteImport } from './routes/cases.$caseId'
 import { Route as DocumentsIndexRouteImport } from './routes/documents.index'
@@ -86,11 +87,6 @@ const SettingsRoute = SettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SourcesRoute = SourcesRouteImport.update({
-  id: '/sources',
-  path: '/sources',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SystemRoute = SystemRouteImport.update({
   id: '/system',
   path: '/system',
@@ -99,6 +95,16 @@ const SystemRoute = SystemRouteImport.update({
 const WorkspacesRoute = WorkspacesRouteImport.update({
   id: '/workspaces',
   path: '/workspaces',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcquisitionIndexRoute = AcquisitionIndexRouteImport.update({
+  id: '/acquisition/',
+  path: '/acquisition/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcquisitionAttemptIdRoute = AcquisitionAttemptIdRouteImport.update({
+  id: '/acquisition/$attemptId',
+  path: '/acquisition/$attemptId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CasesIndexRoute = CasesIndexRouteImport.update({
@@ -122,14 +128,14 @@ const DocumentsDocumentIdRoute = DocumentsDocumentIdRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const SourcesIndexRoute = SourcesIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => SourcesRoute,
+  id: '/sources/',
+  path: '/sources/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const SourcesSourceIdRoute = SourcesSourceIdRouteImport.update({
-  id: '/$sourceId',
-  path: '/$sourceId',
-  getParentRoute: () => SourcesRoute,
+  id: '/sources/$sourceId',
+  path: '/sources/$sourceId',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const SourcesSourceIdIndexRoute = SourcesSourceIdIndexRouteImport.update({
   id: '/',
@@ -149,12 +155,13 @@ export interface FileRoutesByFullPath {
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
   '/settings': typeof SettingsRoute
-  '/sources': typeof SourcesRouteWithChildren
   '/system': typeof SystemRoute
   '/workspaces': typeof WorkspacesRoute
+  '/acquisition/$attemptId': typeof AcquisitionAttemptIdRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
   '/sources/$sourceId': typeof SourcesSourceIdRouteWithChildren
+  '/acquisition/': typeof AcquisitionIndexRoute
   '/cases/': typeof CasesIndexRoute
   '/documents/': typeof DocumentsIndexRoute
   '/sources/': typeof SourcesIndexRoute
@@ -174,8 +181,10 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/system': typeof SystemRoute
   '/workspaces': typeof WorkspacesRoute
+  '/acquisition/$attemptId': typeof AcquisitionAttemptIdRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
+  '/acquisition': typeof AcquisitionIndexRoute
   '/cases': typeof CasesIndexRoute
   '/documents': typeof DocumentsIndexRoute
   '/sources': typeof SourcesIndexRoute
@@ -194,12 +203,13 @@ export interface FileRoutesById {
   '/reviews': typeof ReviewsRoute
   '/sandbox': typeof SandboxRoute
   '/settings': typeof SettingsRoute
-  '/sources': typeof SourcesRouteWithChildren
   '/system': typeof SystemRoute
   '/workspaces': typeof WorkspacesRoute
+  '/acquisition/$attemptId': typeof AcquisitionAttemptIdRoute
   '/cases/$caseId': typeof CasesCaseIdRoute
   '/documents/$documentId': typeof DocumentsDocumentIdRoute
   '/sources/$sourceId': typeof SourcesSourceIdRouteWithChildren
+  '/acquisition/': typeof AcquisitionIndexRoute
   '/cases/': typeof CasesIndexRoute
   '/documents/': typeof DocumentsIndexRoute
   '/sources/': typeof SourcesIndexRoute
@@ -219,12 +229,13 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/sandbox'
     | '/settings'
-    | '/sources'
     | '/system'
     | '/workspaces'
+    | '/acquisition/$attemptId'
     | '/cases/$caseId'
     | '/documents/$documentId'
     | '/sources/$sourceId'
+    | '/acquisition/'
     | '/cases/'
     | '/documents/'
     | '/sources/'
@@ -244,8 +255,10 @@ export interface FileRouteTypes {
     | '/settings'
     | '/system'
     | '/workspaces'
+    | '/acquisition/$attemptId'
     | '/cases/$caseId'
     | '/documents/$documentId'
+    | '/acquisition'
     | '/cases'
     | '/documents'
     | '/sources'
@@ -263,12 +276,13 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/sandbox'
     | '/settings'
-    | '/sources'
     | '/system'
     | '/workspaces'
+    | '/acquisition/$attemptId'
     | '/cases/$caseId'
     | '/documents/$documentId'
     | '/sources/$sourceId'
+    | '/acquisition/'
     | '/cases/'
     | '/documents/'
     | '/sources/'
@@ -287,13 +301,16 @@ export interface RootRouteChildren {
   ReviewsRoute: typeof ReviewsRoute
   SandboxRoute: typeof SandboxRoute
   SettingsRoute: typeof SettingsRoute
-  SourcesRoute: typeof SourcesRouteWithChildren
   SystemRoute: typeof SystemRoute
   WorkspacesRoute: typeof WorkspacesRoute
+  AcquisitionAttemptIdRoute: typeof AcquisitionAttemptIdRoute
   CasesCaseIdRoute: typeof CasesCaseIdRoute
   DocumentsDocumentIdRoute: typeof DocumentsDocumentIdRoute
+  SourcesSourceIdRoute: typeof SourcesSourceIdRouteWithChildren
+  AcquisitionIndexRoute: typeof AcquisitionIndexRoute
   CasesIndexRoute: typeof CasesIndexRoute
   DocumentsIndexRoute: typeof DocumentsIndexRoute
+  SourcesIndexRoute: typeof SourcesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -375,13 +392,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sources': {
-      id: '/sources'
-      path: '/sources'
-      fullPath: '/sources'
-      preLoaderRoute: typeof SourcesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/system': {
       id: '/system'
       path: '/system'
@@ -394,6 +404,20 @@ declare module '@tanstack/react-router' {
       path: '/workspaces'
       fullPath: '/workspaces'
       preLoaderRoute: typeof WorkspacesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/acquisition/': {
+      id: '/acquisition/'
+      path: '/acquisition'
+      fullPath: '/acquisition/'
+      preLoaderRoute: typeof AcquisitionIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/acquisition/$attemptId': {
+      id: '/acquisition/$attemptId'
+      path: '/acquisition/$attemptId'
+      fullPath: '/acquisition/$attemptId'
+      preLoaderRoute: typeof AcquisitionAttemptIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cases/': {
@@ -426,17 +450,17 @@ declare module '@tanstack/react-router' {
     }
     '/sources/': {
       id: '/sources/'
-      path: '/'
+      path: '/sources'
       fullPath: '/sources/'
       preLoaderRoute: typeof SourcesIndexRouteImport
-      parentRoute: typeof SourcesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/sources/$sourceId': {
       id: '/sources/$sourceId'
-      path: '/$sourceId'
+      path: '/sources/$sourceId'
       fullPath: '/sources/$sourceId'
       preLoaderRoute: typeof SourcesSourceIdRouteImport
-      parentRoute: typeof SourcesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/sources/$sourceId/': {
       id: '/sources/$sourceId/'
@@ -460,19 +484,6 @@ const SourcesSourceIdRouteWithChildren = SourcesSourceIdRoute._addFileChildren(
   SourcesSourceIdRouteChildren,
 )
 
-interface SourcesRouteChildren {
-  SourcesSourceIdRoute: typeof SourcesSourceIdRouteWithChildren
-  SourcesIndexRoute: typeof SourcesIndexRoute
-}
-
-const SourcesRouteChildren: SourcesRouteChildren = {
-  SourcesSourceIdRoute: SourcesSourceIdRouteWithChildren,
-  SourcesIndexRoute: SourcesIndexRoute,
-}
-
-const SourcesRouteWithChildren =
-  SourcesRoute._addFileChildren(SourcesRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccessRoute: AccessRoute,
@@ -485,13 +496,16 @@ const rootRouteChildren: RootRouteChildren = {
   ReviewsRoute: ReviewsRoute,
   SandboxRoute: SandboxRoute,
   SettingsRoute: SettingsRoute,
-  SourcesRoute: SourcesRouteWithChildren,
   SystemRoute: SystemRoute,
   WorkspacesRoute: WorkspacesRoute,
+  AcquisitionAttemptIdRoute: AcquisitionAttemptIdRoute,
   CasesCaseIdRoute: CasesCaseIdRoute,
   DocumentsDocumentIdRoute: DocumentsDocumentIdRoute,
+  SourcesSourceIdRoute: SourcesSourceIdRouteWithChildren,
+  AcquisitionIndexRoute: AcquisitionIndexRoute,
   CasesIndexRoute: CasesIndexRoute,
   DocumentsIndexRoute: DocumentsIndexRoute,
+  SourcesIndexRoute: SourcesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
